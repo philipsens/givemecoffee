@@ -1,0 +1,292 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  color: #d7ccc8;
+}
+
+#map {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 110;
+  height: 100vh;
+  width: 75vw;
+}
+
+.button {
+  display: block;
+  width: 100%;
+  margin: 1em 0;
+  border: none;
+  background: #8d6e63;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  color: white;
+  padding: 1em;
+  transition: all 0.2s;
+  text-decoration: none;
+  text-align: center;
+}
+
+.button:hover {
+  background: #795548;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
+  transform: translateY(-4px);
+  transition: all 0.2s;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.sidebar {
+  width: 25vw;
+  height: 100vh;
+  background: #5d4037;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar__header {
+  height: 5em;
+  line-height: 5em;
+  background: #3e2723;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar__header__title {
+  margin: 0.5em;
+  font-size: 3em;
+  color: #efebe9;
+}
+
+.sidebar__body {
+  flex-grow: 1;
+  color: #efebe9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar__body__item__row {
+  margin-top: 0.5em;
+}
+
+.sidebar__body__item {
+  padding: 1em 2em;
+}
+
+.sidebar__body__item--info {
+  flex-grow: 1;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 100;
+}
+
+.sidebar__body__item--legend {
+  background: #efebe9;
+  color: #3e2723;
+}
+
+.sidebar__body__item__title {
+  font-size: 2em;
+}
+
+.sidebar__body__item__range {
+  width: 100%;
+  height: 5px;
+  -webkit-appearance: none;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+#minPrice,
+#maxPrice {
+  background: linear-gradient(
+    90deg,
+    #4caf50 0%,
+    #ffeb3b 33%,
+    #ff9800 66%,
+    #ff5722 100%
+  );
+}
+
+#minRating {
+  background: linear-gradient(90deg, #fff 0%, #ffca28 100%);
+}
+
+#radius {
+  background: #03a9f4;
+}
+
+.sidebar__body__item__range::-webkit-slider-thumb,
+.sidebar__body__item__range::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border: none;
+  border-radius: 100%;
+  background: #8d6e63;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar__body__item__range:focus {
+  outline: none;
+}
+
+.sidebar__body__item__content {
+}
+
+.sidebar__body__item__content__title {
+  font-size: 1.5em;
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.sidebar__body__item__content__image {
+  text-align: center;
+}
+
+.sidebar__body__item__content__image img {
+  max-width: 100%;
+  max-height: 40vh;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar__body__item__content__text {
+}
+
+.marker {
+  width: inherit;
+  height: inherit;
+  background: #795548;
+  border-radius: 50% 50% 50% 4px;
+  box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-45deg);
+}
+
+.marker-scale {
+  width: 100%;
+  height: 100%;
+}
+
+.marker-scale:hover {
+  transform: scale(1.2) translateY(-5px);
+  transition: all 0.2s;
+}
+
+.marker-distance {
+  position: absolute;
+  width: inherit;
+  text-align: center;
+  font-size: 1em;
+  left: 0;
+  top: 25%;
+  color: #efebe9;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.marker-distance.marker--yellow,
+.marker-distance.marker--orange {
+  color: #795548;
+}
+
+.marker-distance--legend {
+  font-weight: bold;
+  color: #795548;
+}
+
+.marker--legend {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.marker--legend__price {
+  background: linear-gradient(
+    90deg,
+    #4caf50 0%,
+    #ffeb3b 33%,
+    #ff9800 66%,
+    #ff5722 100%
+  );
+}
+
+.marker--small {
+  width: 15px;
+  height: 15px;
+}
+
+.marker.marker--user {
+  background: #03a9f4;
+}
+
+.marker.marker--green {
+  background: #4caf50;
+}
+
+.marker.marker--yellow {
+  background: #ffeb3b;
+}
+
+.marker.marker--orange {
+  background: #ff9800;
+}
+
+.marker.marker--red {
+  background: #ff5722;
+}
+
+.marker.marker--closed {
+  border: 3px solid #ff5722;
+}
+
+.radius-legend {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid #03a9f4;
+}
+
+@media only screen and (max-width: 800px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  #map {
+    width: 100vw;
+    height: 80vh;
+  }
+
+  .sidebar {
+    width: 100vw;
+    height: auto;
+  }
+
+  #minPrice::-moz-range-track,
+  #maxPrice::-moz-range-track {
+    background: linear-gradient(
+      90deg,
+      #4caf50 0%,
+      #ffeb3b 33%,
+      #ff9800 66%,
+      #ff5722 100%
+    );
+  }
+
+  #minRating::-moz-range-track {
+    background: linear-gradient(90deg, #fff 0%, #ffca28 100%);
+  }
+
+  #radius::-moz-range-track {
+    background: #03a9f4;
+  }
+}

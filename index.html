@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GiveMeCoffee</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="map"></div>
+
+      <div class="sidebar">
+        <div class="sidebar__header">
+          <span class="sidebar__header__title">
+            GiveMeCoffee
+          </span>
+        </div>
+        <div class="sidebar__body">
+          <div class="sidebar__body__item">
+            <div class="sidebar__body__item__title">Filters</div>
+            <div class="sidebar__body__item__row">
+              Choose budget: minimum / maximum
+            </div>
+            <input
+              id="minPrice"
+              class="sidebar__body__item__range coffee-filter"
+              type="range"
+              min="1"
+              max="4"
+              step="1"
+              value="1"
+            />
+            <input
+              id="maxPrice"
+              class="sidebar__body__item__range coffee-filter"
+              type="range"
+              min="1"
+              max="4"
+              step="1"
+              value="4"
+            />
+            <div class="sidebar__body__item__row">
+              Choose minimum rating
+            </div>
+            <input
+              id="minRating"
+              class="sidebar__body__item__range coffee-filter"
+              type="range"
+              min="1"
+              max="5"
+              step="0.1"
+              value="1"
+            />
+            <div class="sidebar__body__item__row">
+              Choose search radius
+            </div>
+            <input
+              id="radius"
+              class="sidebar__body__item__range"
+              type="range"
+              min="100"
+              max="5000"
+              step="100"
+              value="1000"
+            />
+          </div>
+          <div class="sidebar__body__item sidebar__body__item--info">
+            <div class="sidebar__body__item__title">Info</div>
+            <div id="locationInfo" class="sidebar__body__item__content">
+              <p>Hello, welcome to GiveMeCoffee!</p>
+              <p>
+                Set the filters above to get the coffee locations to your
+                liking.
+              </p>
+              <p>
+                You can also suggest a radius to search in. (This will search
+                more or less based on density)
+              </p>
+              <p>Click on a marker to get more info...</p>
+            </div>
+          </div>
+          <div class="sidebar__body__item sidebar__body__item--legend">
+            <div class="sidebar__body__item__title">Legend</div>
+            <div class="sidebar__body__item__row">
+              <div class="marker marker--legend marker--user"></div>
+              <span class="sidebar__body__item__row">You are here</span>
+            </div>
+            <div class="sidebar__body__item__row">
+              <div class="marker marker--legend"></div>
+              <span class="sidebar__body__item__row">
+                Coffee place with unknown price
+              </span>
+            </div>
+            <div class="sidebar__body__item__row">
+              <div class="marker marker--legend marker--legend__price"></div>
+              <span class="sidebar__body__item__row">
+                Known price: green &rarr; low, red &rarr; high
+              </span>
+            </div>
+            <div class="sidebar__body__item__row">
+              <div class="marker marker--legend marker--small"></div>
+              <div class="marker marker--legend marker"></div>
+              <span class="sidebar__body__item__row">
+                Rating: small &rarr; low, big &rarr; high
+              </span>
+            </div>
+            <div class="sidebar__body__item__row">
+              <span class="marker-distance--legend">200m</span>
+              <span class="sidebar__body__item__row">
+                Distance to the coffee place
+              </span>
+            </div>
+            <div class="sidebar__body__item__row">
+              <div class="radius-legend"></div>
+              <span class="sidebar__body__item__row">
+                Radius of <span id="radius-legend"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""
+    ></script>
+    <script src="js/main.js" defer></script>
+  </body>
+</html>
