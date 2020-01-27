@@ -47,7 +47,13 @@ const getPosition = () =>
   new Promise((res, rej) => {
     navigator.geolocation.getCurrentPosition(res, rej)
   }).catch(err => {
-    alert(err)
+    alert(`Geolocation error: ${err.message}\nReturning fixed location: Le Carrefour, Leiden`)
+    return {
+      coords: {
+        latitude: 52.1689835231739,
+        longitude: 4.484438896179142
+      }
+    }
   })
 
 const setMapView = () =>
@@ -133,7 +139,7 @@ const ratingIsHigherThanCriteria = rating =>
 const priceIsBetweenCriteria = price =>
   price
     ? price.length >= document.querySelector('#minPrice').value &&
-      price.length <= document.querySelector('#maxPrice').value
+    price.length <= document.querySelector('#maxPrice').value
     : true
 
 const getColorForPrice = price => {
