@@ -256,6 +256,51 @@ a {
   border: 3px solid #03a9f4;
 }
 
+.marker-cluster {
+  text-align: center;
+  color: #efebe9;
+  font-size: 1em;
+  background: rgba(121, 85, 72, 0.9);
+  border: 5px solid rgba(121, 85, 72, 0.6);
+  border-radius: 50%;
+  font-weight: bold;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-background-clip: padding-box; /* for Safari */
+  background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+}
+
+.marker-cluster--small {
+  width: 50px;
+  height: 50px;
+  line-height: 40px;
+  margin-top: -25px;
+  margin-left: -25px;
+}
+
+.marker-cluster--medium {
+  width: 60px;
+  height: 60px;
+  line-height: 50px;
+  margin-top: -30px;
+  margin-left: -30px;
+}
+
+.marker-cluster--large {
+  width: 70px;
+  height: 70px;
+  line-height: 60px;
+  margin-top: -35px;
+  margin-left: -35px;
+}
+
+.marker-cluster--legend {
+  display: inline-block;
+  font-size: 0.7em;
+  line-height: 18px;
+  width: 28px;
+  height: 28px;
+}
+
 @media only screen and (max-width: 800px) {
   .wrapper {
     flex-direction: column;

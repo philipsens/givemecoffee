@@ -9,11 +9,38 @@ const prices = {
 }
 
 const map = L.map('map')
-const markers = L.layerGroup().addTo(map)
-const radiusMarker = L.layerGroup().addTo(map)
+const coffeeMarkers = L.markerClusterGroup({
+  maxClusterRadius: 50,
+  polygonOptions: {
+    color: '#795548',
+    fillOpacity: 0.5,
+  },
+  iconCreateFunction: function(cluster) {
+    return L.divIcon({
+      className: '',
+      html: `<div class="marker-cluster ${getSizeByClusterCount(
+        cluster.getChildCount(),
+      )}">${cluster.getChildCount()}</div>`,
+    })
+  },
+})
+
+const radiusLayer = L.layerGroup().addTo(map)
 
 let locations
 let position
+
+const getSizeByClusterCount = count => {
+  if (count >= 2 && count <= 5) {
+    return 'marker-cluster--small'
+  }
+  if (count >= 6 && count <= 10) {
+    return 'marker-cluster--medium'
+  }
+  if (count >= 11 && count <= 50) {
+    return 'marker-cluster--large'
+  }
+}
 
 const initializeApp = () => {
   addTilesToMap()
@@ -40,19 +67,21 @@ const initializeMap = async () => {
 
   locations = await getCoffeeLocations()
 
-  createMarkers()
+  createLayers()
 }
 
 const getPosition = () =>
   new Promise((res, rej) => {
     navigator.geolocation.getCurrentPosition(res, rej)
   }).catch(err => {
-    alert(`Geolocation error: ${err.message}\nReturning fixed location: Le Carrefour, Leiden`)
+    alert(
+      `Geolocation error: ${err.message}\nReturning fixed location: Le Carrefour, Leiden`,
+    )
     return {
       coords: {
         latitude: 52.1689835231739,
-        longitude: 4.484438896179142
-      }
+        longitude: 4.484438896179142,
+      },
     }
   })
 
@@ -68,14 +97,15 @@ const getCoffeeLocations = () =>
 
 const radius = () => document.querySelector('#radius').value
 
-const createMarkers = () => {
+const createLayers = () => {
   createRadiusMarker()
   createUserMarker()
   createCoffeeMarkers()
+  map.addLayer(coffeeMarkers)
 }
 
 const createRadiusMarker = () => {
-  radiusMarker.clearLayers()
+  radiusLayer.clearLayers()
 
   marker = L.circle([position.coords.latitude, position.coords.longitude], {
     color: '#03a9f4',
@@ -83,7 +113,7 @@ const createRadiusMarker = () => {
     radius: radius(),
   })
 
-  radiusMarker.addLayer(marker)
+  radiusLayer.addLayer(marker)
 }
 
 const createUserMarker = () => {
@@ -101,7 +131,7 @@ const createUserMarker = () => {
 }
 
 const createCoffeeMarkers = () => {
-  markers.clearLayers()
+  coffeeMarkers.clearLayers()
 
   locations.businesses.filter(matchSearchCriteria).map(location => {
     marker = L.marker(
@@ -125,7 +155,7 @@ const createCoffeeMarkers = () => {
       .bindPopup(location.name)
       .on('click', () => leadMarkerInfo(location))
 
-    markers.addLayer(marker)
+    coffeeMarkers.addLayer(marker)
   })
 }
 
@@ -139,7 +169,7 @@ const ratingIsHigherThanCriteria = rating =>
 const priceIsBetweenCriteria = price =>
   price
     ? price.length >= document.querySelector('#minPrice').value &&
-    price.length <= document.querySelector('#maxPrice').value
+      price.length <= document.querySelector('#maxPrice').value
     : true
 
 const getColorForPrice = price => {
